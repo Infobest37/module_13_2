@@ -56,6 +56,12 @@ async def set_calories(message, state: FSMContext):
         f"Ваша норма калорий: {calories:.2f} ккал. в сутки"
     )
     await state.finish()
+@dp.message_handler(state="*", content_types=types.ContentTypes.ANY)
+async def all_messages(message: types.Message):
+    """
+    Обработчик для всех остальных сообщений.
+    """
+    await message.answer("Я вас не понимаю. Пожалуйста, выберите действие с помощью кнопок.", reply_markup=kb)
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
